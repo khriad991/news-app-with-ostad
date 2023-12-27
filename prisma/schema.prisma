@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id         Int        @id @default(autoincrement())
+  first_name String     @db.VarChar(50)
+  last_name  String     @db.VarChar(50)
+  email      String     @unique @db.VarChar(50)
+  mobile     String     @db.VarChar(50)
+  password   String     @db.VarChar(50)
+  otp        String     @db.VarChar(10)
+  commentID  comments[]
+  cratedAt   DateTime   @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model comments {
+  id          Int       @id @default(autoincrement())
+  usersID     Int
+  users       users     @relation(fields: [usersID], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  description String    @db.VarChar(1000)
+  postID      Int
+  news_list   news_list @relation(fields: [postID], references: [id], onDelete: Restrict, onUpdate: Cascade)
+}
+
+model news_list {
+  id         Int        @id @default(autoincrement())
+  title      String     @db.VarChar(100)
+  short_des  String     @db.VarChar(400)
+  img1       String     @db.VarChar(300)
+  img2       String     @db.VarChar(300)
+  img3       String     @db.VarChar(300)
+  img4       String     @db.VarChar(300)
+  keywords   String     @db.VarChar(300)
+  long_des   String     @db.LongText
+  type       String     @db.VarChar(200)
+  comments   comments[]
+  catId      Int
+  categories categories @relation(fields: [catId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  createdAt  DateTime   @default(now()) @db.Timestamp(0)
+  updateAt   DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model categories {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(100)
+  news_list news_list[]
+  createdAt DateTime    @default(now()) @db.Timestamp(0)
+  updateAt  DateTime    @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model socials {
+  id       Int    @id @default(autoincrement())
+  facebook String @db.VarChar(200)
+  youtube  String @db.VarChar(200)
+  twitter  String @db.VarChar(200)
+  linkedin String @db.VarChar(200)
+  about    String @db.Text
+  address  String @db.Text
+
+  cretedAt  DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model subscribers {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(100)
+  cretedAt  DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model policies {
+  id       Int    @id @default(autoincrement())
+  long_des String @db.LongText
+  type     String @db.VarChar(50)
+}
