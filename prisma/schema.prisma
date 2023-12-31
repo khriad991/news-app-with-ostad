@@ -59,14 +59,13 @@ model categories {
 }
 
 model socials {
-  id       Int    @id @default(autoincrement())
-  facebook String @db.VarChar(200)
-  youtube  String @db.VarChar(200)
-  twitter  String @db.VarChar(200)
-  linkedin String @db.VarChar(200)
-  about    String @db.Text
-  address  String @db.Text
-
+  id        Int      @id @default(autoincrement())
+  facebook  String   @db.VarChar(200)
+  youtube   String   @db.VarChar(200)
+  twitter   String   @db.VarChar(200)
+  linkedin  String   @db.VarChar(200)
+  about     String   @db.Text
+  address   String   @db.Text
   cretedAt  DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
 }
