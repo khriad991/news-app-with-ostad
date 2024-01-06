@@ -18,6 +18,6 @@ export async function POST(req,res){
 
         return NextResponse.json({status:"success",data:result})
     }catch (e) {
-        return NextResponse.json({status:"fail",data:e})
+        return NextResponse.json({status:"fail",data:e.toString()})
     }
 }

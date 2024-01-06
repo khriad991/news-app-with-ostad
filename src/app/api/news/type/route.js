@@ -18,7 +18,6 @@ export async function GET(req,res){
                 img2:true,
                 img3:true,
                 img4:true
-
             }
         })
 

@@ -8,8 +8,9 @@ export async function POST(req,res){
         const reqBody =await req.json()
         const result =await prisma.news_list.create({data:reqBody})
 
+
         return NextResponse.json({status:"success",data:result})
     }catch (e) {
-        return NextResponse.json({status:"fail",data:e})
+        return NextResponse.json({status:"fail",data:e.toString()})
     }
 }

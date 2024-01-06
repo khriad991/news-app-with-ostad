@@ -7,10 +7,10 @@ export async function GET(req,res){
         const result = await prisma.categories.findMany({
             select:{
                 id:true,
-                name:true
-            }
+                name:true,
+            },
         });
-        return NextResponse.json({status:"success",data:result})
+        return NextResponse.json({status:"success",total:result.length,data:result})
     }catch (e) {
         return NextResponse.json({status:"fail",data:e})
     }

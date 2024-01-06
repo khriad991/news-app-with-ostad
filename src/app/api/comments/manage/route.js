@@ -11,7 +11,7 @@ export async function GET(req,res){
         const headerList = headers()
         const id = parseInt(headerList.get("id"));
         const result = await prisma.comments.findMany({
-            where:{usersID:id},
+            where:{userID:id},
             include:{news_list:{select:{title:true}}}
         });
         if(result.length===0){
@@ -31,17 +31,17 @@ export async function POST(req,res){
         const headerList = headers()
         const id = parseInt(headerList.get("id"))
         const reqBody =await req.json()
-        reqBody.usersID=id;
+        reqBody.userID=id;
         const result =await prisma.comments.create({data:reqBody})
 
         return NextResponse.json({status:"success",data:result})
     }catch (e) {
-        return NextResponse.json({status:"fail",data:e})
+        return NextResponse.json({status:"fail",data:e.toString()})
     }
 }
 
 
-/// delee comment by user id
+/// delete comment by user id
 export async function DELETE(req,res){
     try {
         const headerList = headers();
@@ -51,7 +51,7 @@ export async function DELETE(req,res){
         const result = await prisma.comments.deleteMany({
             where:{
                 AND:{
-                    usersID:id,
+                    userID:id,
                     id:comment_Id
                 }
             }

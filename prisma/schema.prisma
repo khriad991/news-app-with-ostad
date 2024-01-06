@@ -10,26 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id         Int        @id @default(autoincrement())
-  first_name String     @db.VarChar(50)
-  last_name  String     @db.VarChar(50)
-  email      String     @unique @db.VarChar(50)
-  mobile     String     @db.VarChar(50)
-  password   String     @db.VarChar(50)
-  otp        String     @db.VarChar(10)
-  commentID  comments[]
-  cratedAt   DateTime   @default(now()) @db.Timestamp(0)
-  updatedAt  DateTime   @default(now()) @updatedAt @db.Timestamp(0)
-}
-
-model comments {
-  id          Int       @id @default(autoincrement())
-  usersID     Int
-  users       users     @relation(fields: [usersID], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  description String    @db.VarChar(1000)
-  postID      Int
-  news_list   news_list @relation(fields: [postID], references: [id], onDelete: Restrict, onUpdate: Cascade)
+model categories {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(100)
+  news_list news_list[]
+  createdAt DateTime    @default(now()) @db.Timestamp(0)
+  updatedAt DateTime    @default(now()) @updatedAt @db.Timestamp(0)
 }
 
 model news_list {
@@ -44,18 +30,34 @@ model news_list {
   long_des   String     @db.LongText
   type       String     @db.VarChar(200)
   comments   comments[]
-  catId      Int
-  categories categories @relation(fields: [catId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  catID      Int
+  categories categories @relation(fields: [catID], references: [id], onDelete: Restrict, onUpdate: Cascade)
   createdAt  DateTime   @default(now()) @db.Timestamp(0)
-  updateAt   DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+  updatedAt  DateTime   @default(now()) @updatedAt @db.Timestamp(0)
 }
 
-model categories {
-  id        Int         @id @default(autoincrement())
-  name      String      @unique @db.VarChar(100)
-  news_list news_list[]
-  createdAt DateTime    @default(now()) @db.Timestamp(0)
-  updateAt  DateTime    @default(now()) @updatedAt @db.Timestamp(0)
+model users {
+  id        Int        @id @default(autoincrement())
+  firstName String     @db.VarChar(50)
+  lastName  String     @db.VarChar(50)
+  email     String     @unique @db.VarChar(50)
+  mobile    String     @db.VarChar(50)
+  password  String     @db.VarChar(50)
+  otp       String     @db.VarChar(10)
+  comments  comments[]
+  createdAt DateTime   @default(now()) @db.Timestamp(0)
+  updatedAt DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+}
+
+model comments {
+  id           Int       @id @default(autoincrement())
+  userID       Int
+  postID       Int
+  users        users     @relation(fields: [userID], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  news_list    news_list @relation(fields: [postID], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  descriptions String    @db.VarChar(1000)
+  createdAt    DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt    DateTime  @default(now()) @updatedAt @db.Timestamp(0)
 }
 
 model socials {
@@ -66,14 +68,14 @@ model socials {
   linkedin  String   @db.VarChar(200)
   about     String   @db.Text
   address   String   @db.Text
-  cretedAt  DateTime @default(now()) @db.Timestamp(0)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
 }
 
 model subscribers {
   id        Int      @id @default(autoincrement())
   email     String   @unique @db.VarChar(100)
-  cretedAt  DateTime @default(now()) @db.Timestamp(0)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
 }
 

@@ -8,8 +8,9 @@ export async function GET(req,res){
     try {
         const {searchParams} = new URL(req.url)
         const catID = parseInt(searchParams.get("catID"))
+        console.log(catID)
         const result = await prisma.news_list.findMany({
-            where:{catId:catID},
+            where:{catID:catID},
             select:{
                 id:true,
                 title:true,
@@ -22,6 +23,7 @@ export async function GET(req,res){
         })
         return NextResponse.json({status:"success",data:result})
     }catch (e) {
+        console.log("my errer is ------->>> ",e)
         return NextResponse.json({status:"fail",data:e.toString()})
     }
 }
