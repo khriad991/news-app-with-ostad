@@ -4,7 +4,6 @@ import Subscribe from "@/components/User/Subscribe";
 
 const Footer =  (props) => {
     let socialsData = props.data['socials'][0]
-    console.log(socialsData)
     return (
         <div className="section-footer">
             <div className="py-5 bg-dark">
