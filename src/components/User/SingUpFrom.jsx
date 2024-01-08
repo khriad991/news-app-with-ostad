@@ -45,32 +45,17 @@ const [submit, setSubmit] = useState(false)
                 },
                 body:JSON.stringify(data)
             }
-
             let res = await fetch("/api/user/registration",options)
             let ResJson = await res.json();
             if(ResJson['status']=== "success"){
                 SuccessToast("Registration Success")
                 router.push('/user/login')
-
             }else{
                 setSubmit(false);
                 ErrorToast("Request Fail")
             }
-
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
     return (
         <div className="row h-100  justify-content-center center-screen my-5">
             <div className="col-md-4 col-lg-4 col-sm-12 col-12 ">
