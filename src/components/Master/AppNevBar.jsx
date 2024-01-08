@@ -58,7 +58,7 @@ const AppNevBar = (props) => {
                                     return(
                                         <Link
                                             key={i} className="nav-link f-13"
-                                            href={"/category/id="+item['id']} >
+                                            href={"/category?id="+item['id']} >
                                             {item['name']}
                                         </Link>
                                     )})}

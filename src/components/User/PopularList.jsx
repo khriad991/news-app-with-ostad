@@ -3,16 +3,16 @@ import Link from "next/link";
 import Subscribe from "@/components/User/Subscribe";
 
 const PopularList = (props) => {
+
     return (
         <div className="row">
             <div className="bg-dark mt-2 rounded-1 text-white p-2">
                 <span className="p-1">POPULAR</span>
             </div>
-            {
-                props.popular.map((item,i)=>{
+            {props.popular.map((item,i)=>{
                     return(
                         <div key={i} className="col-12 py-1 px-0">
-                            <Link href={`/details?id=${item}['id']`}  className="card bg-white shadow-sm">
+                            <Link href={`/details?id=${item["id"]}`}  className="card bg-white shadow-sm">
                                 <div className="row">
                                     <div className="col-md-5">
                                         <img className=" rounded-start-1 w-100 h-100" src={item['img2']}  alt="News Image"/>
@@ -23,10 +23,8 @@ const PopularList = (props) => {
                                 </div>
                             </Link>
                         </div>
-                    )
-                })
+                    )})
             }
-
             <div className="bg-dark mt-2 rounded-1 text-white p-2">
                 <span className="p-1">SUBSCRIBE</span>
             </div>

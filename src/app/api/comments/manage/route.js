@@ -30,6 +30,7 @@ export async function POST(req,res){
     try {
         const headerList = headers()
         const id = parseInt(headerList.get("id"))
+
         const reqBody =await req.json()
         reqBody.userID=id;
         const result =await prisma.comments.create({data:reqBody})
